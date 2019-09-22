@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 命名空间,指定这个mapper(对应接口的全限定类名) -->
+<!-- id,对应接口的方法名 -->
+<mapper namespace="com.study.mybatis11.ICountryDao">
+	<resultMap type="Country" id="countryMap">
+		<id column="cid" property="cid"/>
+		<result column="cname" property="cname"/>
+		<collection property="ministers" 
+					ofType="Minister" 
+					select="selectMinistersByCountryId"
+					column="cid">
+		</collection>		
+	</resultMap>
+	<select id="selectMinistersByCountryId" resultType="Minister">
+		select mid,mname from minister where countryId=#{ooo}
+	</select>
+	<select id="selectCountryById" resultMap="countryMap">
+		select cid,cname
+		from country
+		where cid=#{xxx}
+	</select>
+
+</mapper>

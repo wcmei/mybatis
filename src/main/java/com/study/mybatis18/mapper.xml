@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 命名空间,指定这个mapper(对应接口的全限定类名) -->
+<!-- id,对应接口的方法名 -->
+<mapper namespace="com.study.mybatis18.ICountryDao">
+	<!-- 开启内置的二级缓存 -->
+	<!-- 
+		<cache/>中的属性配置：
+		eviction：逐出策略，默认为LRU
+			eviction="FIFO"：First In First Out，先进先出
+			eviction="LRU"：Least Recently Used，未被使用的时间最长的
+		flushInterval：刷新缓存的时间间隔，单位毫秒。这里的刷新缓存即清空缓存，一般不指定，即当执行增删改时刷新缓存
+		readOnly：设置缓存中的数据是否只读。只读的缓存会给所有调用者返回缓存对象的相同实例，因此这些对象不能被修改，这
+				    提供了很重要的性能优势。但读写缓存会返回缓存对象的拷贝，这会慢一些，但是安全，默认是false
+		size：二级缓存中可以存放的最多对象个数，默认是1024个	   
+		type:使用第三方工具包
+			type="org.mybatis.caches.ehcache.EhcacheCache"：使用ehcache工具包
+	 -->
+	<cache/>
+	<resultMap type="Country" id="countryMap">
+		<id column="cid" property="cid"/>
+		<result column="cname" property="cname"/>
+		<collection property="ministers" ofType="Minister">
+			<id column="mid" property="mid"/>
+			<result column="mname" property="mname"/>
+		</collection>		
+	</resultMap>
+	<!-- useCache对当前查询语句的局部关闭，默认是true（开启，即不同配置该属性就是开启的） -->
+	<select id="selectCountryById" resultMap="countryMap" useCache="true">
+		select cid,cname,mid,mname
+		from country,minister
+		where cid=countryId and cid=#{xxx}
+	</select>
+
+</mapper>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 命名空间,指定这个mapper(对应接口的全限定类名) -->
+<!-- id,对应接口的方法名 -->
+<mapper namespace="com.study.mybatis7.IStudentDao">
+	<select id="selectStusByCondition" resultType="Student">
+		<!-- 底层采用prepareStament -->
+		select * from student where name like '%' #{nameCon} '%' and
+			age=#{ageCon} and score>#{scoreCon.score}
+
+		<!-- 太复杂 -->
+		<!-- select * from student where name like concat('%',#{xxx},'%') -->
+
+		<!-- 底层采用语句拼接,有sql注入的风险 -->
+		<!-- select * from student where name like '%${value}%' -->
+	</select>
+</mapper>

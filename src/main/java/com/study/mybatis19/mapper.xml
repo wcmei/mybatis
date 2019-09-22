@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 命名空间,指定这个mapper(对应接口的全限定类名) -->
+<!-- id,对应接口的方法名 -->
+<mapper namespace="com.study.mybatis19.IStudentDao">
+	<!-- parameterType可以省略 -->
+	<!-- <insert id="insertStu" parameterType="Student">
+		insert into student(name,age,score) values(#{name},#{age},#{score})
+	</insert> -->
+	
+	<!-- <insert id="insertStuCacheId" parameterType="Student">
+		insert into student(name,age,score) values(#{name},#{age},#{score})
+		
+			将数据库自动生成的id值(主键)赋值给对象的id属性 ,
+			resultType:设置返回类型
+			keyProperty:对象的属性
+			order:指定插入语句和生成id(主键)的顺序
+				"AFTER"表示id在插入语句执行完后生成
+				"BEFORE"表示id在插入语句执行完前生成
+				该属性可以省略不写,mybatis会根据连接不同的数据库采用不同的策略
+				mysql:id在插入语句之后生成
+				oracle:id在插入语句之前生成
+				如果进行注解试开发,那么该属性则不能省略
+		
+		<selectKey resultType="int" keyProperty="id" order="AFTER">
+			select @@identity
+		</selectKey>
+	</insert> -->
+	
+	<!-- <delete id="deleteStuById">
+		下面的#{}仅仅是个占位符,里面放什么都可以
+		delete from student where id = #{xxx} 
+	</delete> -->
+
+	<!-- <update id="updateStu" parameterType="Student">
+		update student set name=#{name} where id=#{id}
+	</update> -->
+	
+	<!-- <select id="selectAllStus" resultType="Student">
+		select * from student	
+	</select> -->
+	
+	<!-- <select id="selectStuById" resultType="Student">
+		select * from student where id=#{ooo}
+	</select> -->
+	
+	<!-- <select id="selectStusByName" resultType="Student">
+		底层采用prepareStament
+		select * from student where name like '%' #{xxx} '%'
+		
+		太复杂
+		select * from student where name like concat('%',#{xxx},'%')
+		
+		底层采用语句拼接,有sql注入的风险
+		select * from student where name like '%${value}%'
+	</select> -->
+</mapper>

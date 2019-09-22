@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!--加载配置文件 -->
+	<properties resource="jdbc.properties"></properties>
+	<!-- 设置整个应用所使用的常量 -->
+	<settings>
+		<!--延迟加载的全局开关。当开启时，所有关联对象都会延迟加载。 默认为false -->
+		<setting name="lazyLoadingEnabled" value="true" />
+		<!-- 
+			当开启时，任何方法的调用都会加载该对象的所有属性
+			否则，每个属性会按需加载（参考 lazyLoadTriggerMethods)
+			默认为false（在 3.4.1 及之前的版本默认值为 true）
+		 -->
+		<setting name="aggressiveLazyLoading" value="false" />
+	</settings>
+	<!-- 定义别名 -->
+	<typeAliases>
+		<!-- 对指定类型定义别名 -->
+		<!-- <typeAlias type="com.study.mybatis17.Student" alias="Student"/> -->
+		<!-- 将指定包中所有类的简单类名当作其别名 -->
+		<package name="com.study.mybatis17" />
+	</typeAliases>
+	<!-- 配置运行环境 -->
+	<environments default="mysql">
+		<environment id="mysql">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="${jdbc.driver}" />
+				<property name="url" value="${jdbc.url}" />
+				<property name="username" value="${jdbc.username}" />
+				<property name="password" value="${jdbc.password}" />
+			</dataSource>
+		</environment>
+	</environments>
+
+	<!-- 注册映射文件 -->
+	<mappers>
+		<mapper resource="com/study/mybatis17/mapper.xml" />
+	</mappers>
+
+</configuration>

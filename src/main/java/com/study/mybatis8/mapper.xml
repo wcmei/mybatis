@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 命名空间,指定这个mapper(对应接口的全限定类名) -->
+<!-- id,对应接口的方法名 -->
+<mapper namespace="com.study.mybatis8.IStudentDao">
+	<select id="selectStusByCondition" resultType="Student">
+		<!-- 底层采用prepareStament -->
+		<!-- 在MyBatis3.4.4及以上版本不能直接使用#{0}要使用 #{arg0}或#{param0]-->
+		select * from student where name like '%' #{arg0} '%' and
+			age=#{arg1} and score>#{param2}
+
+		<!-- 太复杂 -->
+		<!-- select * from student where name like concat('%',#{xxx},'%') -->
+
+		<!-- 底层采用语句拼接,有sql注入的风险 -->
+		<!-- select * from student where name like '%${value}%' -->
+	</select>
+	
+	<!-- 
+		#{}中可以放什么
+		1.参数对象的属性
+		2.随意内容,此时的#{}是个占位符
+		3.参数为map时的key
+		4.参数为map时,若key所对应的value为对象,则可以将该对象的属性放入
+		5.参数的索引号
+	 -->
+	
+</mapper>

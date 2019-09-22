@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 命名空间,指定这个mapper(对应接口的全限定类名) -->
+<!-- id,对应接口的方法名 -->
+<mapper namespace="com.study.mybatis16.IStudentDao">
+	
+	<resultMap type="Student" id="studentMapper">
+		<id column="sid" property="sid"/>
+		<result column="sname" property="sname"/>
+		<collection property="courses" ofType="Course">
+			<id column="cid" property="cid"/>
+			<result column="cname" property="cname"/>
+		</collection>					
+	</resultMap>
+	<select id="selectStuById" resultMap="studentMapper">
+		select sid,sname,cid,cname
+		from stu,middle,cou
+		where sid=stuId and cid=couId and sid=#{xxx}
+	</select>	
+</mapper>
